@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,6 +53,13 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				coffee: {
+					light: '#E6DBCC',
+					medium: '#C8B6A6',
+					dark: '#8D7B68',
+					darkest: '#4F3F2F',
+				},
+				cream: '#F9F5F0',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -84,11 +92,29 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'steam': {
+					'0%': { 
+						transform: 'translateY(0) translateX(0) scale(1)',
+						opacity: '0'
+					},
+					'50%': { 
+						opacity: '0.5'
+					},
+					'100%': { 
+						transform: 'translateY(-10px) translateX(-5px) scale(1.5)',
+						opacity: '0'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'steam': 'steam 2s ease-out infinite'
+			},
+			fontFamily: {
+				serif: ['Playfair Display', 'serif'],
+				sans: ['Poppins', 'sans-serif']
 			}
 		}
 	},
