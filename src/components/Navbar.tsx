@@ -1,118 +1,123 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Coffee, ShoppingBag, Calendar, Menu, X } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 import { useCart } from '@/context/CartContext';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Menu, X, ShoppingCart, LogOut, User } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { User as SupabaseUser } from '@supabase/supabase-js';
+import { toast } from "sonner";
 
-const Navbar = () => {
-  const { totalItems, toggleCart } = useCart();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+interface NavbarProps {
+  user: SupabaseUser | null;
+}
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+const Navbar = ({ user }: NavbarProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { items } = useCart();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error('Error signing out');
+    } else {
+      toast.success('Signed out successfully');
+    }
   };
 
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <nav className="bg-cream py-4 px-6 sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
-          <Coffee className="h-8 w-8 text-coffee-darkest" />
-          <span className="text-2xl font-serif font-bold text-coffee-darkest">Bean Brew</span>
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-coffee-darkest hover:text-coffee-dark font-medium transition-colors">
-            Home
+    <nav className="bg-white shadow-md">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
+          <Link to="/" className="text-2xl font-serif font-bold text-coffee-darkest">
+            Bean & Brew
           </Link>
-          <Link to="/menu" className="text-coffee-darkest hover:text-coffee-dark font-medium transition-colors">
-            Menu
-          </Link>
-          <Link to="/booking" className="text-coffee-darkest hover:text-coffee-dark font-medium transition-colors">
-            Book a Table
-          </Link>
-        </div>
 
-        <div className="hidden md:flex items-center space-x-4">
-          <Button 
-            variant="outline"
-            className="relative"
-            onClick={toggleCart}
-            aria-label="Shopping cart"
-          >
-            <ShoppingBag className="h-5 w-5" />
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-coffee-darkest text-cream rounded-full h-5 w-5 flex items-center justify-center text-xs">
-                {totalItems}
-              </span>
-            )}
-          </Button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <Button 
-            variant="outline"
-            className="relative mr-2"
-            onClick={toggleCart}
-            aria-label="Shopping cart"
-          >
-            <ShoppingBag className="h-5 w-5" />
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-coffee-darkest text-cream rounded-full h-5 w-5 flex items-center justify-center text-xs">
-                {totalItems}
-              </span>
-            )}
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleMobileMenu}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link to="/menu" className="text-coffee-dark hover:text-coffee-darkest">
+              Menu
+            </Link>
+            <Link to="/booking" className="text-coffee-dark hover:text-coffee-darkest">
+              Book a Table
+            </Link>
+            {user ? (
+              <>
+                <Button variant="ghost" onClick={handleLogout} className="text-coffee-dark hover:text-coffee-darkest">
+                  <LogOut className="h-5 w-5" />
+                </Button>
+              </>
             ) : (
-              <Menu className="h-6 w-6" />
+              <Button asChild className="bg-coffee-dark hover:bg-coffee-darkest">
+                <Link to="/auth">
+                  <User className="mr-2 h-5 w-5" />
+                  Sign In
+                </Link>
+              </Button>
             )}
-          </Button>
-        </div>
-      </div>
+            <Link to="/cart" className="relative text-coffee-dark hover:text-coffee-darkest">
+              <ShoppingCart className="h-6 w-6" />
+              {items.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-coffee-medium text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {items.length}
+                </span>
+              )}
+            </Link>
+          </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={cn(
-          "fixed inset-0 bg-coffee-darkest/90 z-50 flex flex-col items-center justify-center space-y-8 transition-all duration-300 md:hidden",
-          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          {/* Mobile Navigation */}
+          <div className="md:hidden flex items-center">
+            <button onClick={toggleMenu} className="text-coffee-dark hover:text-coffee-darkest">
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden mt-4 space-y-4">
+            <Link 
+              to="/menu" 
+              className="block text-coffee-dark hover:text-coffee-darkest"
+              onClick={() => setIsOpen(false)}
+            >
+              Menu
+            </Link>
+            <Link 
+              to="/booking" 
+              className="block text-coffee-dark hover:text-coffee-darkest"
+              onClick={() => setIsOpen(false)}
+            >
+              Book a Table
+            </Link>
+            {user ? (
+              <Button 
+                variant="ghost" 
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }} 
+                className="w-full justify-start text-coffee-dark hover:text-coffee-darkest"
+              >
+                <LogOut className="mr-2 h-5 w-5" />
+                Sign Out
+              </Button>
+            ) : (
+              <Button 
+                asChild 
+                className="w-full bg-coffee-dark hover:bg-coffee-darkest"
+                onClick={() => setIsOpen(false)}
+              >
+                <Link to="/auth">
+                  <User className="mr-2 h-5 w-5" />
+                  Sign In
+                </Link>
+              </Button>
+            )}
+          </div>
         )}
-      >
-        <X
-          className="absolute top-6 right-6 h-8 w-8 text-cream cursor-pointer"
-          onClick={toggleMobileMenu}
-        />
-        <Link
-          to="/"
-          className="text-xl text-cream hover:text-coffee-light transition-colors"
-          onClick={toggleMobileMenu}
-        >
-          Home
-        </Link>
-        <Link
-          to="/menu"
-          className="text-xl text-cream hover:text-coffee-light transition-colors"
-          onClick={toggleMobileMenu}
-        >
-          Menu
-        </Link>
-        <Link
-          to="/booking"
-          className="text-xl text-cream hover:text-coffee-light transition-colors"
-          onClick={toggleMobileMenu}
-        >
-          Book a Table
-        </Link>
       </div>
     </nav>
   );
