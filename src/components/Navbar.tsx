@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -42,6 +41,9 @@ const Navbar = ({ user }: NavbarProps) => {
             </Link>
             <Link to="/booking" className="text-coffee-dark hover:text-coffee-darkest">
               Book a Table
+            </Link>
+            <Link to="/contact" className="text-coffee-dark hover:text-coffee-darkest">
+              Contact
             </Link>
             {user ? (
               <>
@@ -91,6 +93,13 @@ const Navbar = ({ user }: NavbarProps) => {
               onClick={() => setIsOpen(false)}
             >
               Book a Table
+            </Link>
+            <Link 
+              to="/contact" 
+              className="block text-coffee-dark hover:text-coffee-darkest"
+              onClick={() => setIsOpen(false)}
+            >
+              Contact
             </Link>
             {user ? (
               <Button 
