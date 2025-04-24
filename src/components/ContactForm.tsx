@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/form';
 import { toast } from 'sonner';
 import { Mail } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -37,11 +38,20 @@ export const ContactForm = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
-      // In a real application, you would send this data to your backend
-      console.log('Form submitted:', data);
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        });
+
+      if (error) throw error;
+
       toast.success('Message sent successfully! We will get back to you soon.');
       form.reset();
     } catch (error) {
+      console.error('Error submitting contact form:', error);
       toast.error('Failed to send message. Please try again.');
     }
   };
