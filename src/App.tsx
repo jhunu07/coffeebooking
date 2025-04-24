@@ -45,26 +45,24 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <CartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Navbar user={user} />
-            <Cart />
-            <main>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/menu" element={<Menu />} />
-                <Route path="/booking" element={<Booking />} />
-                <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-          </BrowserRouter>
-        </CartProvider>
-      </TooltipProvider>
+      <CartProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Navbar user={user} />
+          <Cart />
+          <main>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/booking" element={<Booking />} />
+              <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </BrowserRouter>
+      </CartProvider>
     </QueryClientProvider>
   );
 };
