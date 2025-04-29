@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 import Menu from "./pages/Menu";
 import Booking from "./pages/Booking";
 import Contact from "./pages/Contact";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Navbar from "./components/Navbar";
@@ -57,6 +58,7 @@ const App = () => {
               <Route path="/menu" element={<Menu />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

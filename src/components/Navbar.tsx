@@ -1,11 +1,13 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { useCart } from '@/context/CartContext';
-import { Menu, X, ShoppingCart, LogOut, User } from 'lucide-react';
+import { Menu, X, ShoppingCart, LogOut, User, Settings } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { toast } from "sonner";
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 interface NavbarProps {
   user: SupabaseUser | null;
@@ -14,6 +16,9 @@ interface NavbarProps {
 const Navbar = ({ user }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { items } = useCart();
+  const { profile } = useUserProfile(user);
+  
+  const isAdmin = profile?.role === 'admin';
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -45,6 +50,12 @@ const Navbar = ({ user }: NavbarProps) => {
             <Link to="/contact" className="text-coffee-dark hover:text-coffee-darkest">
               Contact
             </Link>
+            {isAdmin && (
+              <Link to="/admin" className="text-coffee-dark hover:text-coffee-darkest flex items-center">
+                <Settings className="mr-1 h-4 w-4" />
+                Admin
+              </Link>
+            )}
             {user ? (
               <>
                 <Button variant="ghost" onClick={handleLogout} className="text-coffee-dark hover:text-coffee-darkest">
@@ -101,6 +112,16 @@ const Navbar = ({ user }: NavbarProps) => {
             >
               Contact
             </Link>
+            {isAdmin && (
+              <Link 
+                to="/admin" 
+                className="block text-coffee-dark hover:text-coffee-darkest flex items-center"
+                onClick={() => setIsOpen(false)}
+              >
+                <Settings className="mr-1 h-4 w-4" />
+                Admin
+              </Link>
+            )}
             {user ? (
               <Button 
                 variant="ghost" 

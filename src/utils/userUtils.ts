@@ -20,3 +20,13 @@ export const checkUserProfile = async (userId: string) => {
     return null;
   }
 };
+
+export const isAdmin = async (userId: string) => {
+  try {
+    const profile = await checkUserProfile(userId);
+    return profile?.role === 'admin';
+  } catch (error) {
+    console.error('Error checking admin status:', error);
+    return false;
+  }
+};
