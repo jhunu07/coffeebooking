@@ -1,17 +1,11 @@
 
 import React from 'react';
-import { Coffee as CoffeeType } from '@/context/CartContext';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface CoffeeCardProps {
-  coffee: CoffeeType;
-  className?: string;
-}
-
-const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee, className }) => {
+const CoffeeCard = ({ coffee, className }) => {
   const { addToCart } = useCart();
 
   return (

@@ -5,15 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useCart } from '@/context/CartContext';
 import { Menu, X, ShoppingCart, LogOut, User, Settings } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { User as SupabaseUser } from '@supabase/supabase-js';
 import { toast } from "sonner";
 import { useUserProfile } from '@/hooks/useUserProfile';
 
-interface NavbarProps {
-  user: SupabaseUser | null;
-}
-
-const Navbar = ({ user }: NavbarProps) => {
+const Navbar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { items } = useCart();
   const { profile } = useUserProfile(user);

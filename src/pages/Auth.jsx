@@ -15,7 +15,7 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -41,7 +41,7 @@ const Auth = () => {
         navigate('/');
         toast.success("Welcome back!");
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error(error.message);
     } finally {
       setIsLoading(false);
