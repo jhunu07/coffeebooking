@@ -5,12 +5,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContactRequests } from '@/components/admin/ContactRequests';
 import { OrderRequests } from '@/components/admin/OrderRequests';
 import { supabase } from '@/integrations/supabase/client';
+import { User } from '@supabase/supabase-js';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { Loader } from 'lucide-react';
 
 const Admin = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const { profile, isLoading: isProfileLoading } = useUserProfile(user);
 

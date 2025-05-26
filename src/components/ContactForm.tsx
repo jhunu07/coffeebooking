@@ -24,8 +24,10 @@ const contactFormSchema = z.object({
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
 export const ContactForm = () => {
-  const form = useForm({
+  const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: '',
@@ -34,7 +36,7 @@ export const ContactForm = () => {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ContactFormValues) => {
     try {
       const { error } = await supabase
         .from('contact_submissions')

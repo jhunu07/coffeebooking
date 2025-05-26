@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
 import { useState, useEffect } from 'react';
 import { supabase } from './integrations/supabase/client';
+import { User } from '@supabase/supabase-js';
 
 import Index from "./pages/Index";
 import Menu from "./pages/Menu";
@@ -21,7 +22,7 @@ import Cart from "./components/Cart";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

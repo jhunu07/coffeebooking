@@ -1,7 +1,7 @@
 
 import { supabase } from "@/integrations/supabase/client";
 
-export const checkUserProfile = async (userId) => {
+export const checkUserProfile = async (userId: string) => {
   try {
     const { data, error } = await supabase
       .from('profiles')
@@ -21,7 +21,7 @@ export const checkUserProfile = async (userId) => {
   }
 };
 
-export const isAdmin = async (userId) => {
+export const isAdmin = async (userId: string) => {
   try {
     const profile = await checkUserProfile(userId);
     return profile?.role === 'admin';
