@@ -59,7 +59,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-sm">123 Coffee Street, Brew City, BC 12345</span>
+                <span className="text-sm">Rajkot Gujarat 360003</span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0" />
@@ -81,7 +81,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-coffee-dark mt-12 pt-6 text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} Bean Brew. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()}coffeewala. All rights reserved.</p>
         </div>
       </div>
     </footer>
