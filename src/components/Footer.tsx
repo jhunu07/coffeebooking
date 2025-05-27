@@ -12,10 +12,10 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
               <Coffee className="h-8 w-8" />
-              <span className="text-2xl font-serif font-bold text-coffee-light">Bean Brew</span>
+              <span className="text-2xl font-serif font-bold text-coffee-light">coffeewala </span>
             </Link>
             <p className="mt-4 text-sm">
-              At Bean Brew, we're passionate about bringing you the finest coffee experiences. 
+              At coffeewala, we're passionate about bringing you the finest coffee experiences. 
               From perfectly brewed espressos to cozy café ambiance.
             </p>
             <div className="flex space-x-4 mt-6">
@@ -59,15 +59,15 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-sm">123 Coffee Street, Brew City, BC 12345</span>
+                <span className="text-sm">Rajkot Gujarat</span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0" />
-                <span className="text-sm">(123) 456-7890</span>
+                <span className="text-sm">(+91) 9471564852</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0" />
-                <span className="text-sm">info@beanbrew.com</span>
+                <span className="text-sm">info@coffewala.com</span>
               </li>
               <li className="flex items-start">
                 <Clock className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
