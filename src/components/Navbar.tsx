@@ -36,7 +36,7 @@ const Navbar = ({ user }: NavbarProps) => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-serif font-bold text-coffee-darkest">
-           coffeewala
+           CoffeeWala
           </Link>
 
           {/* Desktop Navigation */}
