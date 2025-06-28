@@ -47,7 +47,7 @@ const Booking = () => {
                     Location
                   </h3>
                   <p className="text-coffee-light">
-                    123 Coffee Street, Brew City, BC 12345
+                    Rajkot Gujarat 360003
                   </p>
                 </div>
 
@@ -57,20 +57,12 @@ const Booking = () => {
                     Opening Hours
                   </h3>
                   <ul className="text-coffee-light space-y-1">
-                    <li>Monday - Friday: 7am - 9pm</li>
-                    <li>Saturday - Sunday: 8am - 10pm</li>
+                    <li>Monday - Friday: 9am - 10pm</li>
+                    <li>Saturday - Sunday: 10am - 12pm</li>
                   </ul>
                 </div>
 
-                <div>
-                  <h3 className="font-medium mb-2 flex items-center">
-                    <Phone className="mr-2 h-4 w-4" />
-                    Contact
-                  </h3>
-                  <p className="text-coffee-light">
-                    For immediate assistance, call us at (123) 456-7890
-                  </p>
-                </div>
+              
 
                 <div className="pt-4 border-t border-coffee-medium">
                   <h3 className="font-medium mb-2">Note</h3>

@@ -128,7 +128,7 @@ const BookingForm = () => {
           <Label htmlFor="name">Full Name</Label>
           <Input
             id="name"
-            placeholder="John Doe"
+            placeholder="Your Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -140,7 +140,7 @@ const BookingForm = () => {
           <Input
             id="email"
             type="email"
-            placeholder="john@example.com"
+            placeholder="abc@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

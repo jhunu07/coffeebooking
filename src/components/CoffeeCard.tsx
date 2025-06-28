@@ -3,7 +3,7 @@ import React from 'react';
 import { Coffee as CoffeeType } from '@/context/CartContext';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, IndianRupee } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface CoffeeCardProps {
@@ -29,7 +29,10 @@ const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee, className }) => {
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-serif text-lg font-semibold text-coffee-darkest">{coffee.name}</h3>
-          <span className="font-medium text-coffee-dark">${coffee.price.toFixed(2)}</span>
+          <div className="flex items-center font-medium text-coffee-dark">
+            <IndianRupee className="h-4 w-4" />
+            <span>{coffee.price}</span>
+          </div>
         </div>
         <p className="text-sm text-muted-foreground mb-4">{coffee.description}</p>
         <Button 

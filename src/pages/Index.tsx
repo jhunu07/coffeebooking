@@ -11,23 +11,30 @@ const featuredCoffees: CoffeeType[] = [
   {
     id: 1,
     name: "Classic Espresso",
-    price: 3.99,
+    price: 300,
     description: "Rich, full-bodied espresso with a caramel-like sweetness.",
-    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aedda?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    image: "https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg",
   },
   {
     id: 2,
     name: "Cappuccino",
-    price: 4.99,
+    price: 400,
     description: "Espresso with steamed milk and a deep layer of foam.",
     image: "https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
   {
     id: 3,
     name: "Caramel Macchiato",
-    price: 5.49,
+    price: 500,
     description: "Espresso with vanilla syrup, steamed milk and caramel drizzle.",
-    image: "https://images.unsplash.com/photo-1546549024-8d2cb007390a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    image: "https://images.pexels.com/photos/32713605/pexels-photo-32713605.jpeg",
+  },
+  {
+    id: 4,
+    name: " Macchiato",
+    price: 500,
+    description: "Espresso with vanilla syrup, steamed milk and caramel drizzle.",
+    image: "https://images.pexels.com/photos/32713605/pexels-photo-32713605.jpeg",
   },
 ];
 

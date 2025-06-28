@@ -45,11 +45,12 @@ const Footer = () => {
                 <Link to="/booking" className="text-sm hover:text-white transition-colors">Book a Table</Link>
               </li>
               <li>
-                <a href="#" className="text-sm hover:text-white transition-colors">About Us</a>
+                <Link to="/about" className="text-sm hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <a href="#" className="text-sm hover:text-white transition-colors">Contact</a>
+                <Link to="/contact" className="text-sm hover:text-white transition-colors"> Contact</Link>
               </li>
+              
             </ul>
           </div>
 
