@@ -41,18 +41,17 @@ const Navbar = ({ user }: NavbarProps) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
+            <Link to="/" className="text-coffee-dark hover:text-coffee-darkest">
+              Home
+            </Link>
             <Link to="/menu" className="text-coffee-dark hover:text-coffee-darkest">
               Menu
             </Link>
-            <Link to="/about" className="text-coffee-dark hover:text-coffee-darkest">
-              About
-            </Link>
+      
             <Link to="/booking" className="text-coffee-dark hover:text-coffee-darkest">
               Book a Table
             </Link>
-            <Link to="/contact" className="text-coffee-dark hover:text-coffee-darkest">
-              Contact
-            </Link>
+        
             {isAdmin && (
               <Link to="/admin" className="text-coffee-dark hover:text-coffee-darkest flex items-center">
                 <Settings className="mr-1 h-4 w-4" />
