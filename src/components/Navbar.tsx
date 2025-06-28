@@ -44,6 +44,9 @@ const Navbar = ({ user }: NavbarProps) => {
             <Link to="/menu" className="text-coffee-dark hover:text-coffee-darkest">
               Menu
             </Link>
+            <Link to="/about" className="text-coffee-dark hover:text-coffee-darkest">
+              About
+            </Link>
             <Link to="/booking" className="text-coffee-dark hover:text-coffee-darkest">
               Book a Table
             </Link>
@@ -97,6 +100,13 @@ const Navbar = ({ user }: NavbarProps) => {
               onClick={() => setIsOpen(false)}
             >
               Menu
+            </Link>
+            <Link 
+              to="/about" 
+              className="block text-coffee-dark hover:text-coffee-darkest"
+              onClick={() => setIsOpen(false)}
+            >
+              About
             </Link>
             <Link 
               to="/booking" 
