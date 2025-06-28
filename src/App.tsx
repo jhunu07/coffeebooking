@@ -16,6 +16,7 @@ import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
+import CartPage from "./pages/CartPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
@@ -60,6 +61,7 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
               <Route path="*" element={<NotFound />} />
