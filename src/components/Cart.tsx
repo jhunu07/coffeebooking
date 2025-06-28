@@ -2,7 +2,7 @@
 import React from 'react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
-import { ShoppingBag, X, Plus, Minus, Trash2 } from 'lucide-react';
+import { ShoppingBag, X, Plus, Minus, Trash2, IndianRupee } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -26,7 +26,6 @@ const Cart = () => {
 
   return (
     <>
-      {/* Overlay */}
       <div 
         className={cn(
           "fixed inset-0 bg-black/50 z-50 transition-opacity duration-300",
@@ -35,7 +34,6 @@ const Cart = () => {
         onClick={toggleCart}
       />
 
-      {/* Cart Sidebar */}
       <div 
         className={cn(
           "fixed top-0 right-0 h-full w-full md:w-96 bg-cream z-50 shadow-xl transform transition-transform duration-300 ease-in-out",
@@ -43,7 +41,6 @@ const Cart = () => {
         )}
       >
         <div className="flex flex-col h-full">
-          {/* Cart Header */}
           <div className="flex items-center justify-between p-6 border-b border-coffee-light">
             <div className="flex items-center">
               <ShoppingBag className="h-6 w-6 text-coffee-darkest mr-2" />
@@ -52,23 +49,18 @@ const Cart = () => {
             <button 
               onClick={toggleCart}
               className="text-coffee-darkest hover:text-coffee-dark"
-              aria-label="Close cart"
             >
               <X className="h-6 w-6" />
             </button>
           </div>
 
-          {/* Cart Items */}
           <div className="flex-grow overflow-y-auto p-4">
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center p-6">
                 <ShoppingBag className="h-16 w-16 text-coffee-medium mb-4" />
                 <p className="text-lg text-coffee-dark font-medium mb-2">Your cart is empty</p>
                 <p className="text-muted-foreground mb-6">Add some delicious coffee to get started</p>
-                <Button 
-                  onClick={toggleCart}
-                  variant="outline"
-                >
+                <Button onClick={toggleCart} variant="outline">
                   Continue Shopping
                 </Button>
               </div>
@@ -86,14 +78,16 @@ const Cart = () => {
                     <div className="ml-4 flex flex-1 flex-col">
                       <div className="flex justify-between text-base font-medium text-coffee-darkest">
                         <h3>{item.name}</h3>
-                        <p className="ml-4">${(item.price * item.quantity).toFixed(2)}</p>
+                        <div className="flex items-center ml-4">
+                          <IndianRupee className="h-4 w-4" />
+                          <span>{item.price * item.quantity}</span>
+                        </div>
                       </div>
                       <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center border border-coffee-light rounded-md">
                           <button
                             onClick={() => decreaseQuantity(item.id)}
                             className="p-1.5 text-coffee-dark hover:text-coffee-darkest"
-                            aria-label="Decrease quantity"
                           >
                             <Minus className="h-4 w-4" />
                           </button>
@@ -101,7 +95,6 @@ const Cart = () => {
                           <button
                             onClick={() => increaseQuantity(item.id)}
                             className="p-1.5 text-coffee-dark hover:text-coffee-darkest"
-                            aria-label="Increase quantity"
                           >
                             <Plus className="h-4 w-4" />
                           </button>
@@ -109,7 +102,6 @@ const Cart = () => {
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-coffee-dark hover:text-red-500"
-                          aria-label="Remove item"
                         >
                           <Trash2 className="h-5 w-5" />
                         </button>
@@ -121,12 +113,14 @@ const Cart = () => {
             )}
           </div>
 
-          {/* Cart Footer */}
           {items.length > 0 && (
             <div className="border-t border-coffee-light p-6 space-y-4">
               <div className="flex justify-between text-base font-medium text-coffee-darkest">
                 <p>Subtotal</p>
-                <p>${totalPrice.toFixed(2)}</p>
+                <div className="flex items-center">
+                  <IndianRupee className="h-4 w-4" />
+                  <span>{totalPrice}</span>
+                </div>
               </div>
               <p className="text-sm text-muted-foreground">
                 Shipping and taxes calculated at checkout.

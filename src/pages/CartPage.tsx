@@ -2,7 +2,7 @@
 import React from 'react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
-import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, IndianRupee } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -43,7 +43,6 @@ const CartPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Cart Items */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-xl font-serif font-semibold text-coffee-darkest mb-6">Order Items</h2>
@@ -59,7 +58,10 @@ const CartPage = () => {
                       </div>
                       <div className="ml-4 flex-1">
                         <h3 className="font-medium text-coffee-darkest">{item.name}</h3>
-                        <p className="text-coffee-dark">{item.price.toFixed(2)}</p>
+                        <div className="flex items-center text-coffee-dark">
+                          <IndianRupee className="h-4 w-4" />
+                          <span>{item.price}</span>
+                        </div>
                       </div>
                       <div className="flex items-center space-x-2">
                         <button
@@ -77,9 +79,10 @@ const CartPage = () => {
                         </button>
                       </div>
                       <div className="ml-4 flex items-center space-x-4">
-                        <span className="font-medium text-coffee-darkest">
-                          {(item.price * item.quantity).toFixed(2)}
-                        </span>
+                        <div className="flex items-center font-medium text-coffee-darkest">
+                          <IndianRupee className="h-4 w-4" />
+                          <span>{item.price * item.quantity}</span>
+                        </div>
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-coffee-dark hover:text-red-500"
@@ -93,23 +96,31 @@ const CartPage = () => {
               </div>
             </div>
 
-            {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
                 <h2 className="text-xl font-serif font-semibold text-coffee-darkest mb-6">Order Summary</h2>
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-coffee-dark">Subtotal</span>
-                    <span className="font-medium">{totalPrice.toFixed(2)}</span>
+                    <div className="flex items-center font-medium">
+                      <IndianRupee className="h-4 w-4" />
+                      <span>{totalPrice}</span>
+                    </div>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-coffee-dark">Tax</span>
-                    <span className="font-medium">{(totalPrice * 0.1).toFixed(2)}</span>
+                    <div className="flex items-center font-medium">
+                      <IndianRupee className="h-4 w-4" />
+                      <span>{Math.round(totalPrice * 0.1)}</span>
+                    </div>
                   </div>
                   <hr className="border-coffee-light" />
                   <div className="flex justify-between text-lg font-semibold">
                     <span className="text-coffee-darkest">Total</span>
-                    <span className="text-coffee-darkest">{(totalPrice * 1.1).toFixed(2)}</span>
+                    <div className="flex items-center text-coffee-darkest">
+                      <IndianRupee className="h-4 w-4" />
+                      <span>{Math.round(totalPrice * 1.1)}</span>
+                    </div>
                   </div>
                 </div>
                 <Button 

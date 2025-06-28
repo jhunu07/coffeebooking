@@ -3,37 +3,34 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import CoffeeCard from '@/components/CoffeeCard';
-import { Coffee, CupSoda, Loader2 } from 'lucide-react';
-import { useCart, Coffee as CoffeeType } from '@/context/CartContext';
+import { Coffee, CupSoda } from 'lucide-react';
+import { Coffee as CoffeeType } from '@/context/CartContext';
 
-// Featured coffees data
 const featuredCoffees: CoffeeType[] = [
   {
     id: 1,
     name: "Classic Espresso",
-    price: 3.99,
+    price: 199,
     description: "Rich, full-bodied espresso with a caramel-like sweetness.",
     image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aedda?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
   {
     id: 2,
     name: "Cappuccino",
-    price: 4.99,
+    price: 299,
     description: "Espresso with steamed milk and a deep layer of foam.",
     image: "https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
   {
     id: 3,
     name: "Caramel Macchiato",
-    price: 5.49,
+    price: 349,
     description: "Espresso with vanilla syrup, steamed milk and caramel drizzle.",
     image: "https://images.unsplash.com/photo-1546549024-8d2cb007390a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
 ];
 
 const Index = () => {
-  const { addToCart } = useCart();
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -48,12 +45,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-coffee-darkest/40 z-10" />
         <div className="relative z-20 container mx-auto h-full flex flex-col justify-center items-start px-6">
           <div className="max-w-2xl">
-            <div className="relative inline-block mb-4">
-              <div className="absolute -top-3 -left-2 w-4 h-4 rounded-full bg-coffee-medium animate-steam" />
-              <div className="absolute -top-3 left-0 w-3 h-3 rounded-full bg-coffee-medium animate-steam opacity-70 delay-100" />
-              <div className="absolute -top-4 left-2 w-3 h-3 rounded-full bg-coffee-medium animate-steam opacity-60 delay-300" />
-              <Coffee className="h-12 w-12 text-white mb-4" />
-            </div>
+            <Coffee className="h-12 w-12 text-white mb-4" />
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-6">
               Exquisite Coffee, <br /> 
               <span className="text-coffee-medium">Memorable Experiences</span>
