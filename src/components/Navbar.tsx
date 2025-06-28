@@ -15,7 +15,7 @@ interface NavbarProps {
 
 const Navbar = ({ user }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { items } = useCart();
+  const { items, toggleCart } = useCart();
   const { profile } = useUserProfile(user);
   
   const isAdmin = profile?.role === 'admin';
@@ -44,6 +44,9 @@ const Navbar = ({ user }: NavbarProps) => {
             <Link to="/menu" className="text-coffee-dark hover:text-coffee-darkest">
               Menu
             </Link>
+            <Link to="/about" className="text-coffee-dark hover:text-coffee-darkest">
+              About
+            </Link>
             <Link to="/booking" className="text-coffee-dark hover:text-coffee-darkest">
               Book a Table
             </Link>
@@ -70,14 +73,17 @@ const Navbar = ({ user }: NavbarProps) => {
                 </Link>
               </Button>
             )}
-            <Link to="/cart" className="relative text-coffee-dark hover:text-coffee-darkest">
+            <button 
+              onClick={toggleCart}
+              className="relative text-coffee-dark hover:text-coffee-darkest"
+            >
               <ShoppingCart className="h-6 w-6" />
               {items.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-coffee-medium text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {items.length}
                 </span>
               )}
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Navigation */}
@@ -97,6 +103,13 @@ const Navbar = ({ user }: NavbarProps) => {
               onClick={() => setIsOpen(false)}
             >
               Menu
+            </Link>
+            <Link 
+              to="/about" 
+              className="block text-coffee-dark hover:text-coffee-darkest"
+              onClick={() => setIsOpen(false)}
+            >
+              About
             </Link>
             <Link 
               to="/booking" 
@@ -146,6 +159,16 @@ const Navbar = ({ user }: NavbarProps) => {
                 </Link>
               </Button>
             )}
+            <button 
+              onClick={() => {
+                toggleCart();
+                setIsOpen(false);
+              }}
+              className="flex items-center w-full text-coffee-dark hover:text-coffee-darkest"
+            >
+              <ShoppingCart className="h-5 w-5 mr-2" />
+              Cart ({items.length})
+            </button>
           </div>
         )}
       </div>

@@ -104,51 +104,10 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-16 px-6 bg-cream">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-serif font-bold text-coffee-darkest mb-12 text-center">
-            Meet Our Team
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="w-24 h-24 bg-coffee-light rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl font-bold text-coffee-darkest">RK</span>
-              </div>
-              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-2">Raj Kumar</h3>
-              <p className="text-coffee-medium mb-2">Founder & Head Roaster</p>
-              <p className="text-coffee-dark text-sm">
-                With 15 years of experience in coffee roasting, Raj brings passion and expertise to every blend.
-              </p>
-            </div>
-            
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="w-24 h-24 bg-coffee-light rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl font-bold text-coffee-darkest">SP</span>
-              </div>
-              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-2">Sita Patel</h3>
-              <p className="text-coffee-medium mb-2">Head Barista</p>
-              <p className="text-coffee-dark text-sm">
-                Sita is our coffee artist, creating beautiful latte art and ensuring every cup is perfect.
-              </p>
-            </div>
-            
-            <div className="text-center bg-white p-6 rounded-lg shadow-md">
-              <div className="w-24 h-24 bg-coffee-light rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl font-bold text-coffee-darkest">AM</span>
-              </div>
-              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-2">Arjun Modi</h3>
-              <p className="text-coffee-medium mb-2">General Manager</p>
-              <p className="text-coffee-dark text-sm">
-                Arjun ensures our customers have the best experience from the moment they walk in.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+     
+      
     </div>
   );
 };
 
 export default About;
-
