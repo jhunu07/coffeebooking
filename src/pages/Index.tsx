@@ -5,28 +5,80 @@ import { Link } from 'react-router-dom';
 import CoffeeCard from '@/components/CoffeeCard';
 import { Coffee, CupSoda } from 'lucide-react';
 import { Coffee as CoffeeType } from '@/context/CartContext';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const featuredCoffees: CoffeeType[] = [
   {
     id: 1,
-    name: "Classic Espresso",
-    price: 3.99,
-    description: "Rich, full-bodied espresso with a caramel-like sweetness.",
-    image: "https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg",
+    name: "South Indian Filter Coffee",
+    price: 80,
+    description: "Traditional filter coffee with chicory, served with hot milk and sugar.",
+    image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
   {
     id: 2,
-    name: "Cappuccino",
-    price: 4.99,
-    description: "Espresso with steamed milk and a deep layer of foam.",
+    name: "Madras Cappuccino",
+    price: 120,
+    description: "Rich espresso with steamed milk and a touch of cardamom.",
     image: "https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
   {
     id: 3,
-    name: "Caramel Macchiato",
-    price: 5.49,
-    description: "Espresso with vanilla syrup, steamed milk and caramel drizzle.",
+    name: "Masala Chai Latte",
+    price: 90,
+    description: "Traditional Indian spiced tea with steamed milk and aromatic spices.",
     image: "https://images.pexels.com/photos/32713605/pexels-photo-32713605.jpeg",
+  },
+];
+
+const carouselCoffees: CoffeeType[] = [
+  {
+    id: 16,
+    name: "Mumbai Street Coffee",
+    price: 60,
+    description: "Strong black coffee served roadside style with jaggery.",
+    image: "https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg",
+  },
+  {
+    id: 17,
+    name: "Kerala Spiced Coffee",
+    price: 110,
+    description: "Coffee infused with cardamom, cinnamon, and black pepper.",
+    image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+  },
+  {
+    id: 18,
+    name: "Bangalore Café Coffee",
+    price: 95,
+    description: "Modern café style coffee with a South Indian twist.",
+    image: "https://images.pexels.com/photos/1058920/pexels-photo-1058920.jpeg",
+  },
+  {
+    id: 19,
+    name: "Goan Coconut Coffee",
+    price: 130,
+    description: "Coffee with coconut milk and palm sugar, Goan specialty.",
+    image: "https://images.pexels.com/photos/15889374/pexels-photo-15889374.jpeg",
+  },
+  {
+    id: 20,
+    name: "Rajasthani Kesar Coffee",
+    price: 150,
+    description: "Premium coffee with saffron and almonds, royal taste.",
+    image: "https://images.unsplash.com/photo-1538587888044-79f13ddd7e49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+  },
+  {
+    id: 21,
+    name: "Bengali Mishti Coffee",
+    price: 100,
+    description: "Sweet coffee with jaggery and condensed milk.",
+    image: "https://images.pexels.com/photos/1006297/pexels-photo-1006297.jpeg",
   },
 ];
 
@@ -47,12 +99,12 @@ const Index = () => {
           <div className="max-w-2xl">
             <Coffee className="h-12 w-12 text-white mb-4" />
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-6">
-              Exquisite Coffee, <br /> 
-              <span className="text-coffee-medium">Memorable Experiences</span>
+              Authentic Indian Coffee, <br /> 
+              <span className="text-coffee-medium">Traditional Flavors</span>
             </h1>
             <p className="text-xl text-white/90 mb-8 max-w-xl">
-              Experience the rich flavors of premium coffee in our cozy atmosphere. 
-              Order online or book a table for a perfect coffee date.
+              Experience the rich heritage of Indian coffee culture with our authentic blends
+              and traditional brewing methods at genuine Indian prices.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
@@ -80,16 +132,43 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Coffee Carousel Section */}
+      <section className="py-16 px-6 bg-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-coffee-darkest mb-4">
+              Discover Indian Coffee Varieties
+            </h2>
+            <p className="text-coffee-dark max-w-2xl mx-auto">
+              From street-side filter coffee to royal saffron blends, explore the diverse flavors of India.
+            </p>
+          </div>
+
+          <Carousel className="w-full max-w-5xl mx-auto">
+            <CarouselContent className="-ml-1">
+              {carouselCoffees.map((coffee) => (
+                <CarouselItem key={coffee.id} className="pl-1 md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <CoffeeCard coffee={coffee} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
+      </section>
+
       {/* Featured Coffee Section */}
       <section className="py-16 px-6 bg-cream">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-coffee-darkest mb-4">
-              Our Featured Coffee
+              Our Signature Blends
             </h2>
             <p className="text-coffee-dark max-w-2xl mx-auto">
-              Discover our carefully selected coffee beans, expertly roasted and brewed to perfection.
-              Each cup tells a story of quality and passion.
+              Handpicked regional specialties that represent the true essence of Indian coffee culture.
             </p>
           </div>
 
@@ -125,11 +204,11 @@ const Index = () => {
         <div className="container mx-auto relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-              Reserve Your Perfect Coffee Experience
+              Experience Authentic Indian Coffee Culture
             </h2>
             <p className="text-xl mb-8">
-              Whether it's a casual meet-up, business meeting, or romantic date,
-              we have the perfect spot waiting for you.
+              Join us for traditional coffee rituals, from South Indian filter coffee ceremonies
+              to modern café experiences with a desi twist.
             </p>
             <Button 
               asChild
@@ -149,10 +228,10 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-coffee-darkest mb-4">
-              Our Coffee Journey
+              Our Traditional Process
             </h2>
             <p className="text-coffee-dark max-w-2xl mx-auto">
-              From carefully selected beans to the perfect brew, discover the passion behind each cup.
+              Following time-honored Indian coffee traditions, each cup is crafted with care and respect for heritage.
             </p>
           </div>
 
@@ -161,9 +240,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-coffee-light rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-coffee-darkest">1</span>
               </div>
-              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-3">Selection</h3>
+              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-3">Indian Beans</h3>
               <p className="text-coffee-dark">
-                We source the finest beans from sustainable farms around the world, ensuring quality and ethical practices.
+                We source premium beans from the Western Ghats and Nilgiri hills, supporting local farmers and sustainable practices.
               </p>
             </div>
             
@@ -171,9 +250,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-coffee-light rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-coffee-darkest">2</span>
               </div>
-              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-3">Roasting</h3>
+              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-3">Traditional Roasting</h3>
               <p className="text-coffee-dark">
-                Our master roaster brings out the unique flavor profile of each bean through careful roasting techniques.
+                Our beans are roasted using traditional methods with chicory blend, creating the authentic South Indian flavor profile.
               </p>
             </div>
             
@@ -181,9 +260,9 @@ const Index = () => {
               <div className="w-16 h-16 bg-coffee-light rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-coffee-darkest">3</span>
               </div>
-              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-3">Brewing</h3>
+              <h3 className="text-xl font-serif font-semibold text-coffee-darkest mb-3">Filter Brewing</h3>
               <p className="text-coffee-dark">
-                Our skilled baristas prepare each cup with precision and care, creating the perfect coffee experience.
+                Using traditional metal filters and time-tested brewing techniques to extract maximum flavor and aroma.
               </p>
             </div>
           </div>

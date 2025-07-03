@@ -5,144 +5,152 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Coffee as CoffeeType } from '@/context/CartContext';
 
-// Menu data
+// Menu data with Indian coffee varieties and real Indian pricing
 const coffeeMenu: Record<string, CoffeeType[]> = {
-  espresso: [
+  traditional: [
     {
       id: 1,
-      name: "Classic Espresso",
-      price: 3.99,
-      description: "Rich, full-bodied espresso with a caramel-like sweetness.",
+      name: "South Indian Filter Coffee",
+      price: 80,
+      description: "Traditional filter coffee with chicory, served with hot milk and sugar.",
       image: "https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg",
     },
     {
-      id: 2,
-      name: "Americano",
-      price: 3.49,
-      description: "Espresso diluted with hot water, maintaining the flavor but reducing intensity.",
+      id: 22,
+      name: "Kumbakonam Degree Coffee",
+      price: 90,
+      description: "Premium filter coffee from Kumbakonam, known for its strong aroma.",
       image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 3,
-      name: "Double Espresso",
-      price: 4.49,
-      description: "Twice the espresso, twice the flavor, a powerful coffee experience.",
+      id: 23,
+      name: "Madras Filter Coffee",
+      price: 75,
+      description: "Classic Chennai style filter coffee with perfect milk-coffee ratio.",
       image: "https://images.pexels.com/photos/1058920/pexels-photo-1058920.jpeg",
     },
-  ],
-  milk: [
     {
-      id: 4,
-      name: "Cappuccino",
-      price: 4.99,
-      description: "Espresso with steamed milk and a deep layer of foam.",
+      id: 24,
+      name: "Coorg Coffee",
+      price: 100,
+      description: "From the coffee hills of Karnataka, rich and aromatic.",
+      image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    },
+  ],
+  regional: [
+    {
+      id: 25,
+      name: "Kerala Spiced Coffee",
+      price: 110,
+      description: "Coffee infused with cardamom, cinnamon, and black pepper.",
       image: "https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 5,
-      name: "Caffè Latte",
-      price: 4.49,
-      description: "Espresso with steamed milk and a light layer of foam.",
+      id: 26,
+      name: "Goan Coconut Coffee",
+      price: 130,
+      description: "Coffee with coconut milk and palm sugar, Goan specialty.",
       image: "https://images.pexels.com/photos/15889374/pexels-photo-15889374.jpeg",
     },
     {
-      id: 6,
-      name: "Flat White",
-      price: 4.99,
-      description: "Espresso with velvety steamed milk, less foam than a latte.",
+      id: 27,
+      name: "Rajasthani Kesar Coffee",
+      price: 150,
+      description: "Premium coffee with saffron and almonds, royal taste.",
       image: "https://images.unsplash.com/photo-1538587888044-79f13ddd7e49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 7,
-      name: "Mocha",
-      price: 5.29,
-      description: "Espresso with chocolate syrup and steamed milk, topped with whipped cream.",
+      id: 28,
+      name: "Bengali Mishti Coffee",
+      price: 100,
+      description: "Sweet coffee with jaggery and condensed milk.",
       image: "https://images.pexels.com/photos/1006297/pexels-photo-1006297.jpeg",
     },
   ],
-  specialty: [
+  modern: [
     {
-      id: 8,
-      name: "Caramel Macchiato",
-      price: 5.49,
-      description: "Espresso with vanilla syrup, steamed milk and caramel drizzle.",
+      id: 29,
+      name: "Mumbai Street Coffee",
+      price: 60,
+      description: "Street-style black coffee with jaggery, Mumbai tapri special.",
       image: "https://images.pexels.com/photos/32713605/pexels-photo-32713605.jpeg",
     },
     {
-      id: 9,
-      name: "Hazelnut Latte",
-      price: 5.49,
-      description: "Espresso with steamed milk infused with rich hazelnut flavor.",
+      id: 30,
+      name: "Bangalore Café Latte",
+      price: 120,
+      description: "Modern café style latte with South Indian coffee beans.",
       image: "https://images.unsplash.com/photo-1610632380989-680fe40816c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 10,
-      name: "Vanilla Latte",
-      price: 5.29,
-      description: "Espresso with steamed milk and vanilla syrup.",
+      id: 31,
+      name: "Delhi CCD Style Coffee",
+      price: 95,
+      description: "Café Coffee Day inspired blend, popular in North India.",
       image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 11,
-      name: "Affogato",
-      price: 5.99,
-      description: "Espresso poured over a scoop of vanilla ice cream.",
+      id: 32,
+      name: "Hyderabadi Irani Coffee",
+      price: 85,
+      description: "Traditional Irani café style coffee from Hyderabad.",
       image: "https://pastaevangelists.com/cdn/shop/articles/Affogato.png?v=1621613046&width=1280",
     },
   ],
-  cold: [
+  special: [
     {
-      id: 12,
-      name: "Cold Brew",
-      price: 4.99,
-      description: "Coffee brewed with cold water over 12+ hours for a smooth, less acidic taste.",
+      id: 33,
+      name: "Masala Chai Coffee",
+      price: 90,
+      description: "Fusion of coffee and masala chai spices.",
       image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 13,
-      name: "Iced Latte",
-      price: 4.49,
-      description: "Espresso with cold milk and ice for a refreshing coffee experience.",
+      id: 34,
+      name: "Kulhad Coffee",
+      price: 70,
+      description: "Traditional coffee served in clay cups for authentic taste.",
       image: "https://images.pexels.com/photos/32732219/pexels-photo-32732219.jpeg",
     },
     {
-      id: 14,
-      name: "Iced Mocha",
-      price: 5.29,
-      description: "Espresso with chocolate syrup, cold milk, and ice, topped with whipped cream.",
+      id: 35,
+      name: "Jaggery Coffee",
+      price: 80,
+      description: "Coffee sweetened with organic jaggery instead of sugar.",
       image: "https://images.unsplash.com/photo-1527156231393-7023794f363c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     },
     {
-      id: 15,
-      name: "Frappuccino",
-      price: 5.99,
-      description: "Blended coffee with ice and milk, topped with whipped cream.",
+      id: 36,
+      name: "Rose Coffee",
+      price: 110,
+      description: "Coffee infused with rose water and topped with rose petals.",
       image: "https://images.pexels.com/photos/20205944/pexels-photo-20205944.jpeg",
     },
   ]
 };
 
 const Menu = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("espresso");
+  const [activeCategory, setActiveCategory] = useState<string>("traditional");
 
   return (
     <div className="min-h-screen bg-cream py-12 px-6">
       <div className="container mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-serif font-bold text-coffee-darkest mb-4">
-            Our Coffee Menu
+            Authentic Indian Coffee Menu
           </h1>
           <p className="text-coffee-dark max-w-2xl mx-auto">
-            Explore our wide range of coffee selections. Each cup is crafted with love and expertise.
+            From traditional South Indian filter coffee to regional specialties, 
+            experience the rich diversity of Indian coffee culture at genuine local prices.
           </p>
         </div>
 
-        <Tabs defaultValue="espresso" className="w-full" onValueChange={setActiveCategory}>
-          <TabsList className="w-full max-w-md mx-auto grid grid-cols-2 md:grid-cols-4 mb-10">
-            <TabsTrigger value="espresso">Espresso</TabsTrigger>
-            <TabsTrigger value="milk">Milk Based</TabsTrigger>
-            <TabsTrigger value="specialty">Specialty</TabsTrigger>
-            <TabsTrigger value="cold">Cold Coffee</TabsTrigger>
+        <Tabs defaultValue="traditional" className="w-full" onValueChange={setActiveCategory}>
+          <TabsList className="w-full max-w-2xl mx-auto grid grid-cols-2 md:grid-cols-4 mb-10">
+            <TabsTrigger value="traditional">Traditional</TabsTrigger>
+            <TabsTrigger value="regional">Regional</TabsTrigger>
+            <TabsTrigger value="modern">Modern</TabsTrigger>
+            <TabsTrigger value="special">Special</TabsTrigger>
           </TabsList>
           
           {Object.entries(coffeeMenu).map(([category, items]) => (
@@ -158,7 +166,7 @@ const Menu = () => {
 
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-serif font-semibold text-coffee-darkest mb-6">
-            Want to enjoy your coffee in our cozy atmosphere?
+            Experience authentic Indian coffee culture in our traditional setting
           </h2>
           <Button asChild size="lg" className="bg-coffee-darkest hover:bg-black">
             <a href="/booking">Book a Table</a>
