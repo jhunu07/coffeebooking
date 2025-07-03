@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { ShoppingBag, X, Plus, Minus, Trash2, IndianRupee } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 const Cart = () => {
   const { 
@@ -17,8 +19,19 @@ const Cart = () => {
     totalPrice,
     clearCart
   } = useCart();
+  const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
+    // Check if user is authenticated
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      toast.error('Please login to checkout');
+      toggleCart();
+      navigate('/auth');
+      return;
+    }
+
     toast.success('Order placed successfully! Your coffee is being prepared.');
     clearCart();
     toggleCart();

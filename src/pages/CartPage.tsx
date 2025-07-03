@@ -1,10 +1,11 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, IndianRupee } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const CartPage = () => {
   const { 
@@ -15,8 +16,30 @@ const CartPage = () => {
     totalPrice,
     clearCart
   } = useCart();
+  const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  useEffect(() => {
+    // Check if user is authenticated when page loads
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error('Please login to view your cart');
+        navigate('/auth');
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+
+  const handleCheckout = async () => {
+    // Double check authentication before checkout
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      toast.error('Please login to checkout');
+      navigate('/auth');
+      return;
+    }
+
     toast.success('Order placed successfully! Your coffee is being prepared.');
     clearCart();
   };
