@@ -1,12 +1,18 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CoffeeCard from '@/components/CoffeeCard';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Coffee as CoffeeType } from '@/context/CartContext';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import type { Tables } from '@/integrations/supabase/types';
 
-// Menu data
-const coffeeMenu: Record<string, CoffeeType[]> = {
+type Product = Tables<'products'>;
+
+// Fallback menu data if database is empty
+const fallbackMenu: Record<string, CoffeeType[]> = {
   espresso: [
     {
       id: 1,
@@ -124,6 +130,61 @@ const coffeeMenu: Record<string, CoffeeType[]> = {
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState<string>("espresso");
+  const [coffeeMenu, setCoffeeMenu] = useState<Record<string, CoffeeType[]>>(fallbackMenu);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const { data: products, error } = await supabase
+          .from('products')
+          .select('*')
+          .order('name');
+
+        if (error) {
+          console.error('Error fetching products:', error);
+          toast.error('Failed to load menu. Using default menu.');
+          setLoading(false);
+          return;
+        }
+
+        if (products && products.length > 0) {
+          // Group products by category
+          const menuByCategory: Record<string, CoffeeType[]> = {};
+          
+          products.forEach((product: Product) => {
+            const category = product.category || 'other';
+            if (!menuByCategory[category]) {
+              menuByCategory[category] = [];
+            }
+            
+            menuByCategory[category].push({
+              id: parseInt(product.id.slice(0, 8), 16) || Math.random() * 10000,
+              name: product.name,
+              price: product.price,
+              description: product.description || '',
+              image: product.image_url || 'https://via.placeholder.com/500',
+            });
+          });
+
+          if (Object.keys(menuByCategory).length > 0) {
+            setCoffeeMenu(menuByCategory);
+            setActiveCategory(Object.keys(menuByCategory)[0]);
+          }
+        }
+      } catch (error) {
+        console.error('Unexpected error fetching menu:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMenu();
+  }, []);
+
+  if (loading) {
+    return <LoadingSpinner size="lg" text="Loading menu..." />;
+  }
 
   return (
     <div className="min-h-screen bg-cream py-12 px-6">
@@ -137,21 +198,28 @@ const Menu = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="espresso" className="w-full" onValueChange={setActiveCategory}>
+        <Tabs value={activeCategory} className="w-full" onValueChange={setActiveCategory}>
           <TabsList className="w-full max-w-md mx-auto grid grid-cols-2 md:grid-cols-4 mb-10">
-            <TabsTrigger value="espresso">Espresso</TabsTrigger>
-            <TabsTrigger value="milk">Milk Based</TabsTrigger>
-            <TabsTrigger value="specialty">Specialty</TabsTrigger>
-            <TabsTrigger value="cold">Cold Coffee</TabsTrigger>
+            {Object.keys(coffeeMenu).map((category) => (
+              <TabsTrigger key={category} value={category}>
+                {category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1')}
+              </TabsTrigger>
+            ))}
           </TabsList>
           
           {Object.entries(coffeeMenu).map(([category, items]) => (
             <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {items.map((coffee) => (
-                  <CoffeeCard key={coffee.id} coffee={coffee} />
-                ))}
-              </div>
+              {items.length === 0 ? (
+                <div className="text-center py-12 text-coffee-dark">
+                  No items in this category
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {items.map((coffee) => (
+                    <CoffeeCard key={coffee.id} coffee={coffee} />
+                  ))}
+                </div>
+              )}
             </TabsContent>
           ))}
         </Tabs>

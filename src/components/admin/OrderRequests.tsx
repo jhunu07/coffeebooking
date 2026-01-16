@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Loader, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { formatPrice } from '@/utils/currency';
 import {
   Table,
   TableBody,
@@ -19,7 +20,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialogs";
 
 type Order = {
   id: string;
@@ -155,12 +156,7 @@ export const OrderRequests = () => {
     return new Date(dateString).toLocaleString();
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
-  };
+  const formatCurrency = formatPrice;
 
   if (loading) {
     return (

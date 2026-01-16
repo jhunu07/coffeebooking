@@ -1,5 +1,5 @@
 
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/toast";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -17,9 +17,14 @@ import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import CartPage from "./pages/CartPage";
+import Orders from "./pages/Orders";
+import MyBookings from "./pages/MyBookings";
+import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
+import ErrorBoundary from "./components/ErrorBoundary";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const queryClient = new QueryClient();
 
@@ -43,34 +48,39 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return null; // Or a loading spinner
+    return <LoadingSpinner size="lg" text="Loading..." />;
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Navbar user={user} />
-          <Cart />
-          <main>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/booking" element={<Booking />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </BrowserRouter>
-      </CartProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <CartProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Navbar user={user} />
+            <Cart />
+            <main>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/booking" element={<Booking />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/bookings" element={<MyBookings />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </BrowserRouter>
+        </CartProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 

@@ -2,8 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input, Label } from "@/components/ui/form-inputs";
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from "sonner";
 
@@ -103,7 +102,7 @@ const Auth = () => {
             </Button>
           </form>
 
-          <div className="mt-4 text-center">
+          <div className="mt-4 space-y-2 text-center">
             <button
               onClick={() => setIsSignUp(!isSignUp)}
               className="text-coffee-dark hover:text-coffee-darkest text-sm"
@@ -112,6 +111,30 @@ const Auth = () => {
                 ? 'Already have an account? Sign in' 
                 : "Don't have an account? Sign up"}
             </button>
+            {!isSignUp && (
+              <div>
+                <button
+                  onClick={async () => {
+                    if (!email) {
+                      toast.error('Please enter your email address');
+                      return;
+                    }
+                    try {
+                      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                        redirectTo: `${window.location.origin}/auth?reset=true`,
+                      });
+                      if (error) throw error;
+                      toast.success('Password reset email sent! Check your inbox.');
+                    } catch (error: any) {
+                      toast.error(error.message || 'Failed to send reset email');
+                    }
+                  }}
+                  className="text-coffee-dark hover:text-coffee-darkest text-sm"
+                >
+                  Forgot password?
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

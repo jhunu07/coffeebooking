@@ -15,7 +15,7 @@ interface NavbarProps {
 
 const Navbar = ({ user }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { items, toggleCart } = useCart();
+  const { items, toggleCart, totalItems } = useCart();
   const { profile } = useUserProfile(user);
   
   const isAdmin = profile?.role === 'admin';
@@ -60,6 +60,9 @@ const Navbar = ({ user }: NavbarProps) => {
             )}
             {user ? (
               <>
+                <Link to="/profile" className="text-coffee-dark hover:text-coffee-darkest">
+                  <User className="h-5 w-5" />
+                </Link>
                 <Button variant="ghost" onClick={handleLogout} className="text-coffee-dark hover:text-coffee-darkest">
                   <LogOut className="h-5 w-5" />
                 </Button>
@@ -77,9 +80,9 @@ const Navbar = ({ user }: NavbarProps) => {
               className="relative text-coffee-dark hover:text-coffee-darkest"
             >
               <ShoppingCart className="h-6 w-6" />
-              {items.length > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 bg-coffee-medium text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {items.length}
+                  {totalItems}
                 </span>
               )}
             </button>
@@ -166,7 +169,7 @@ const Navbar = ({ user }: NavbarProps) => {
               className="flex items-center w-full text-coffee-dark hover:text-coffee-darkest"
             >
               <ShoppingCart className="h-5 w-5 mr-2" />
-              Cart ({items.length})
+              Cart ({totalItems})
             </button>
           </div>
         )}

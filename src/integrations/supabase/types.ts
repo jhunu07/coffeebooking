@@ -186,6 +186,51 @@ export type Database = {
         }
         Relationships: []
       }
+      bookings: {
+        Row: {
+          id: string
+          user_id: string | null
+          date: string
+          time: string
+          guests: number
+          name: string
+          email: string
+          phone: string
+          notes: string | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          date: string
+          time: string
+          guests: number
+          name: string
+          email: string
+          phone: string
+          notes?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          date?: string
+          time?: string
+          guests?: number
+          name?: string
+          email?: string
+          phone?: string
+          notes?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

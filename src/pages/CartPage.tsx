@@ -1,12 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
-import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, IndianRupee } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, IndianRupee, Loader } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { createOrder } from '@/utils/orderUtils';
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const { 
     items, 
     removeFromCart, 
@@ -15,10 +19,48 @@ const CartPage = () => {
     totalPrice,
     clearCart
   } = useCart();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-  const handleCheckout = () => {
-    toast.success('Order placed successfully! Your coffee is being prepared.');
-    clearCart();
+  const handleCheckout = async () => {
+    if (items.length === 0) {
+      toast.error('Your cart is empty');
+      return;
+    }
+
+    // Check authentication
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) {
+      toast.error('Please sign in to place an order');
+      navigate('/auth');
+      return;
+    }
+
+    setIsCheckingOut(true);
+    try {
+      const tax = Math.round(totalPrice * 0.1);
+      const totalWithTax = totalPrice + tax;
+
+      const { orderId, error } = await createOrder(
+        session.user.id,
+        items,
+        totalWithTax
+      );
+
+      if (error) {
+        throw error;
+      }
+
+      toast.success('Order placed successfully! Your coffee is being prepared.', {
+        description: `Order ID: ${orderId.slice(0, 8)}...`
+      });
+      clearCart();
+      navigate('/orders');
+    } catch (error: any) {
+      console.error('Checkout error:', error);
+      toast.error(error.message || 'Failed to place order. Please try again.');
+    } finally {
+      setIsCheckingOut(false);
+    }
   };
 
   return (
@@ -126,8 +168,16 @@ const CartPage = () => {
                 <Button 
                   onClick={handleCheckout}
                   className="w-full mt-6 bg-coffee-darkest hover:bg-black"
+                  disabled={isCheckingOut || items.length === 0}
                 >
-                  Proceed to Checkout
+                  {isCheckingOut ? (
+                    <>
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    'Proceed to Checkout'
+                  )}
                 </Button>
                 <Button 
                   variant="outline" 
